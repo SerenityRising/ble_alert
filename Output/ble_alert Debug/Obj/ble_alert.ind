@@ -45,6 +45,7 @@
 "Output/ble_alert Debug/Obj/nrfx_uart.o"
 "Output/ble_alert Debug/Obj/nrfx_uarte.o"
 "Output/ble_alert Debug/Obj/nrfx_lpcomp.o"
+"Output/ble_alert Debug/Obj/nrfx_timer.o"
 "Output/ble_alert Debug/Obj/bsp.o"
 "Output/ble_alert Debug/Obj/bsp_btn_ble.o"
 "Output/ble_alert Debug/Obj/main.o"

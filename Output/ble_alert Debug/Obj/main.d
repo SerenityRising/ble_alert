@@ -126,4 +126,6 @@ Output/ble_alert\ Debug/Obj/main.o: \
  ../nRF5SDK_Current/components/libraries/log/nrf_log_default_backends.h \
  ../nRF5SDK_Current/modules/nrfx/drivers/include/nrfx_lpcomp.h \
  ../nRF5SDK_Current/modules/nrfx/hal/nrf_lpcomp.h \
- ../nRF5SDK_Current/modules/nrfx/hal/nrf_lpcomp.h
+ ../nRF5SDK_Current/modules/nrfx/hal/nrf_lpcomp.h \
+ ../nRF5SDK_Current/modules/nrfx/drivers/include/nrfx_timer.h \
+ ../nRF5SDK_Current/modules/nrfx/hal/nrf_timer.h

@@ -81,10 +81,12 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
-#include "nrfx_lpcomp.h" //ADDED
-#include "nrf_lpcomp.h" //ADDED
-#include "boards.h" //ADDED
-
+//ADDED START
+#include "nrfx_lpcomp.h"
+#include "nrf_lpcomp.h"
+#include "boards.h"
+#include "nrfx_timer.h"
+//ADDED END
 
 #define DEVICE_NAME                     "Nordic_Alert_Notif."                       /**< Name of device. Will be included in the advertising data. */
 #define MANUFACTURER_NAME               "NordicSemiconductor"                       /**< Manufacturer. Will be passed to Device Information Service. */
@@ -163,7 +165,13 @@ static char const * lit_catid[BLE_ANS_NB_OF_CATEGORY_ID] =
 
 
 static void advertising_start(bool erase_bonds);
+
 static void lpcomp_event_handler(nrf_lpcomp_event_t event); //ADDED
+//declare out timer instance as being Timer 0.
+//static scope so LPCOMP can access and start timer
+static const nrfx_timer_t nrfx_timer_0 = NRFX_TIMER_INSTANCE(1); //ADDED
+static void nrfx_timer_event_handler(nrf_timer_event_t event_type, void * p_context); //ADDED
+static uint8_t tone_burst_count = 0;
 
 
 /**@brief Callback function for asserts in the SoftDevice.
@@ -1013,16 +1021,80 @@ static void nrfx_lpcomp_event_handler(nrf_lpcomp_event_t event)
 {
     if (event == NRF_LPCOMP_EVENT_UP)
     {
-      //TODO CODE HERE
+      //TODO LPCOMP RISING EVENT CODE HERE
+
+      //disable LPCOMP interrupts so we only trigger once at
+      //    start of PWM (timer will turn them back on later)
+      //nrf_lpcomp_int_disable(LPCOMP_INTENSET_UP_Msk);
+      nrf_lpcomp_task_trigger(NRF_LPCOMP_TASK_STOP);
+      //turn on LED3
       bsp_board_led_on(BSP_BOARD_LED_2);
+      //increment tone_burst_count
+      tone_burst_count++;
+      //clear Timer 0
+      nrfx_timer_clear(&nrfx_timer_0);
+      //start Timer 0
+      nrfx_timer_resume(&nrfx_timer_0);
     }
-    else if (event == NRF_LPCOMP_EVENT_DOWN)
-    {
-      //TODO CODE HERE
-      bsp_board_led_off(BSP_BOARD_LED_2);
-    }
+
+    //if you want to use NRF_LPCOMP_EVENT_DOWN and UP  at the same time you have to have
+    //  nrf_lpcomp_int_enable(LPCOMP_INTENSET_UP_Msk | LPCOMP_INTENSET_DOWN_Msk)
+    //  after LPCOMP is initialized
+    //else if (event == NRF_LPCOMP_EVENT_DOWN)
+    //{
+      //TODO LPCOMP FALLING EVENT CODE HERE
+    //  bsp_board_led_off(BSP_BOARD_LED_2);
+    //}
 }
 
+/**ADDED
+ * @brief Timer driver event handler type.
+ *
+ * @param[in] event_type Timer event.
+ * @param[in] p_context  General purpose parameter set during initialization of
+ *                       the timer. This parameter can be used to pass
+ *                       additional information to the handler function, for
+ *                       example, the timer ID.
+ */
+static void nrfx_timer_event_handler(nrf_timer_event_t event_type, void * p_context)
+{
+    //TODO TIMER0 COMPARE 0 EVENT CODE HERE
+    //the mid-burst inter-tone timeout has been reached
+    if(event_type == NRF_TIMER_EVENT_COMPARE0)
+    {
+      //if we got here because a tone 3xburst finished...
+      if(tone_burst_count == 3)
+      {
+        //turn on LED4
+        bsp_board_led_on(BSP_BOARD_LED_3);
+      }
+      //if we got here but three tones weren't counted...
+      else
+      {
+        //turn off LED4
+        bsp_board_led_off(BSP_BOARD_LED_3);
+      }
+      tone_burst_count = 0;
+    }
+    //TODO TIMER0 COMPARE 1 EVENT CODE HERE
+    //the LPCOMP interrupt pause is done
+    else if(event_type == NRF_TIMER_EVENT_COMPARE1)
+    {
+      //turn off LED3
+      bsp_board_led_off(BSP_BOARD_LED_2);
+      //nrf_lpcomp_int_enable(LPCOMP_INTENSET_UP_Msk);
+      nrf_lpcomp_task_trigger(NRF_LPCOMP_TASK_START);
+    }
+    //TODO TIMER0 COMPARE 2 EVENT CODE HERE
+    //the inter-burst timeout has been reached
+    else if(event_type == NRF_TIMER_EVENT_COMPARE2)
+    {
+      //turn off LED4
+      bsp_board_led_off(BSP_BOARD_LED_3);
+      //pause timers
+      nrfx_timer_pause(&nrfx_timer_0);
+    }
+}
 
 /**@brief Function for application main entry.
  */
@@ -1046,12 +1118,14 @@ int main(void)
     bsp_board_init(BSP_INIT_LEDS); //ADDED
     
     //ADDED START
+    //make config struct for LPCOMP for initialization later
     nrfx_lpcomp_config_t nrfx_lpcomp_config = {
                                                //NRFX_LPCOMP_CONFIG_REFERENCE is set to <3=> Supply 4/8 
                                                //NRFX_LPCOMP_CONFIG_DETECTION is set to <1=> Up
                                                //NRFX_LPCOMP_CONFIG_HYST is set to 1. It looks like this is automatically
                                                //     set to 50mV in nrf_lpcomp.h
-                                              .hal                = { (nrf_lpcomp_ref_t)NRFX_LPCOMP_CONFIG_REFERENCE,
+                                              .hal                = { 
+                                                                      (nrf_lpcomp_ref_t)NRFX_LPCOMP_CONFIG_REFERENCE,
                                                                       (nrf_lpcomp_detect_t)NRFX_LPCOMP_CONFIG_DETECTION,
                                                                       (nrf_lpcomp_hysteresis_t)NRFX_LPCOMP_CONFIG_HYST 
                                                                     },
@@ -1060,19 +1134,78 @@ int main(void)
                                               //NRFX_LPCOMP_CONFIG_IRQ_PRIORITY set to <2=> 2
                                               .interrupt_priority = NRFX_LPCOMP_CONFIG_IRQ_PRIORITY
                                               };
-
+    //initialize LPCOMP
     nrfx_err_t err_code = nrfx_lpcomp_init(&nrfx_lpcomp_config,
                                            nrfx_lpcomp_event_handler);
 
-    nrf_lpcomp_int_enable(LPCOMP_INTENSET_UP_Msk | LPCOMP_INTENSET_DOWN_Msk); //have to override work done in SDK init function
+    //nrf_lpcomp_int_enable(LPCOMP_INTENSET_UP_Msk | LPCOMP_INTENSET_DOWN_Msk); //have to override work done in SDK init function
                                                                               //because they went too far with abstraction and
                                                                               //made this impossible through their preferred
                                                                               //interface
+    
+    //Note that that Timer 0 instance was created as static outside of main.
+    //Note that if frequency is set to 31.25KHz max CC time is ~2 seconds with default
+    //    bit width of 16. To get more time increase bit width.
+
+    //make timer 0 config struct for init function later
+    nrfx_timer_config_t nrfx_timer_config_0 = {
+                                                //frequency set to <9=> 31.25 kHz 
+                                               .frequency          = (nrf_timer_frequency_t) 9,
+                                                //mode set to <0=> Timer 
+                                               .mode               = (nrf_timer_mode_t) 0,
+                                                //bit_width set to <2=> 24 bit
+                                               .bit_width          = (nrf_timer_bit_width_t) 2,
+                                                //interrupt_priority set to <3=> 3
+                                               .interrupt_priority = 3,                    
+                                               .p_context          = NULL                                                       
+                                              };
+
+    //find out how many ticks we need for our counter times:
+    //1.25 seconds worth of ticks
+    uint32_t timer_0_CC0_ticks = 39063;
+                                 //nrfx_timer_ms_to_ticks(&nrfx_timer_0, 
+                                 //      (uint32_t) 1250);
+    //0.75 seconds worth of ticks
+    uint32_t timer_0_CC1_ticks = 23438;
+                                 //nrfx_timer_ms_to_ticks(&nrfx_timer_0, 
+                                 //      (uint32_t) 750);
+
+    //3 seconds worth of ticks
+    uint32_t timer_0_CC2_ticks = 93750;
+                                 //nrfx_timer_ms_to_ticks(&nrfx_timer_0, 
+                                 //      (uint32_t) 3000);
+
+    //initialize timer 0
+    nrfx_err_t timer_init_err = nrfx_timer_init(&nrfx_timer_0,
+                                                &nrfx_timer_config_0,
+                                                nrfx_timer_event_handler);
+
+    //set up CC0 for 1.25 sec and enable interrupts
+    nrfx_timer_compare(&nrfx_timer_0,
+                       (nrf_timer_cc_channel_t) 0,
+                       timer_0_CC0_ticks,
+                       1);
+
+    //set up CC1 for 0.75 sec and enable interrupts
+    nrfx_timer_compare(&nrfx_timer_0,
+                       (nrf_timer_cc_channel_t) 1,
+                       timer_0_CC1_ticks,
+                       1);
+
+    //set up CC2 for 3 sec and enable interrupts
+    nrfx_timer_compare(&nrfx_timer_0,
+                       (nrf_timer_cc_channel_t) 2,
+                       timer_0_CC2_ticks,
+                       1);
+    
+    //enabling automatically starts the timer, so we need to
+    //    stop it and reset after enabling
+    nrfx_timer_enable(&nrfx_timer_0);
+    nrfx_timer_pause(&nrfx_timer_0);
+    nrfx_timer_clear(&nrfx_timer_0);
+
 
     nrfx_lpcomp_enable();
-
-    
-
     //ADDED END
 
     // Start execution.

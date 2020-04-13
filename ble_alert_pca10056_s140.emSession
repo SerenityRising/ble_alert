@@ -3,7 +3,10 @@
  <Bookmarks>
   <BookmarkItem objectName="" line="115" column="0" path="C:/Users/micha/OneDrive/Documents/Patrick SmartBarn/BLE_Projects/nRF5SDK_Current/modules/nrfx/drivers/src/nrfx_lpcomp.c" number="2" extra="case NRF_LPCOMP_DETECT_UP:" color="5"/>
  </Bookmarks>
- <Breakpoints groups="Breakpoints" active_group="Breakpoints"/>
+ <Breakpoints groups="Breakpoints" active_group="Breakpoints">
+  <BreakpointListItem trigger="" line="1170" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="2" filename="main.c" useHWbreakpoint="false"/>
+  <Exceptions set="MemManage;UsageFault_Coprocessor;UsageFault_CheckingError;UsageFault_StateError;BusFault;ExceptionEntryReturnFault;HardFault"/>
+ </Breakpoints>
  <ExecutionProfileWindow/>
  <FrameBufferWindow>
   <FrameBufferWindow bufferHeight="-1" addressSpace="" addressText="" bufferWidth="-1"/>
@@ -27,6 +30,7 @@
   <ProjectSessionItem path="ble_alert_pca10056_s140;ble_alert;Board Definition"/>
   <ProjectSessionItem path="ble_alert_pca10056_s140;ble_alert;nRF_Drivers"/>
   <ProjectSessionItem path="ble_alert_pca10056_s140;ble_alert;nRF_Libraries"/>
+  <ProjectSessionItem path="ble_alert_pca10056_s140;ble_alert;nRF_Log"/>
   <ProjectSessionItem path="ble_alert_pca10056_s140;ble_alert;Segger Startup Files"/>
  </Project>
  <Register1>
@@ -60,18 +64,29 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="124" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/components/boards/boards.c" selected="0" top="119" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1029" useTextEdit="1" useBinaryEdit="0" left="0" path="main.c" selected="1" top="995" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1711" useTextEdit="1" useBinaryEdit="0" left="0" path="sdk_config.h" selected="0" top="1696" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="53" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/components/libraries/util/sdk_common.h" selected="0" top="39" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="116" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/drivers/src/nrfx_lpcomp.c" selected="0" top="97" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="66" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/drivers/include/nrfx_lpcomp.h" selected="0" top="55" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="109" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/hal/nrf_lpcomp.h" selected="0" top="90" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="71" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/drivers/nrfx_common.h" selected="0" top="105" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="150" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/drivers/src/prs/nrfx_prs.c" selected="0" top="103" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="2783" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/mdk/nrf52840.h" selected="0" top="2759" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="99" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/components/libraries/util/app_error_weak.c" selected="0" top="15" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="62" y="171" useTextEdit="1" useBinaryEdit="0" left="0" path="main.c" selected="1" top="148" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="22" y="5715" useTextEdit="1" useBinaryEdit="0" left="0" path="sdk_config.h" selected="0" top="5693" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="198" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/components/boards/boards.h" selected="0" top="179" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="116" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/drivers/src/nrfx_lpcomp.c" selected="0" top="97" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="66" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/drivers/include/nrfx_lpcomp.h" selected="0" top="16" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="53" y="221" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/hal/nrf_lpcomp.h" selected="0" top="201" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="45" y="194" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/hal/nrf_timer.h" selected="0" top="179" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="38" y="71" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/drivers/include/nrfx_timer.h" selected="0" top="59" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="71" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/drivers/src/nrfx_timer.c" selected="0" top="44" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1798" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/mdk/nrf52840.h" selected="0" top="1797" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="144" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/integration/nrfx/nrfx_glue.h" selected="0" top="122" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="13665" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/mdk/nrf52840_bitfields.h" selected="0" top="13648" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="99" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/components/libraries/util/app_error_weak.c" selected="0" top="63" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="48" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/components/libraries/util/app_error_handler_gcc.c" selected="0" top="28" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="71" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/components/toolchain/cmsis/include/cmsis_gcc.h" selected="0" top="50" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="996" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/components/libraries/log/src/nrf_log_frontend.c" selected="0" top="967" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="230" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/components/libraries/log/nrf_log_backend_interface.h" selected="0" top="228" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="108" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/components/libraries/log/src/nrf_log_backend_uart.c" selected="0" top="84" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="475" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/integration/nrfx/legacy/nrf_drv_uart.h" selected="0" top="446" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="293" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/drivers/src/nrfx_uarte.c" selected="0" top="256" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="584" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/hal/nrf_uarte.h" selected="0" top="562" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="319" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/modules/nrfx/drivers/nrfx_common.h" selected="0" top="297" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1639" useTextEdit="1" useBinaryEdit="0" left="0" path="../nRF5SDK_Current/components/toolchain/cmsis/include/core_cm4.h" selected="0" top="1617" codecName=""/>
  </Files>
- <ARMCrossStudioWindow activeProject="ble_alert" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/micha/OneDrive/Documents/Patrick SmartBarn/BLE_Projects/nRF5SDK_Current/modules/nrfx/hal" debugSearchPath="" autoConnectCapabilities="3711"/>
+ <ARMCrossStudioWindow activeProject="ble_alert" fileDialogDefaultFilter="" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/micha/OneDrive/Documents/Patrick SmartBarn/BLE_Projects/nRF5SDK_Current/modules/nrfx/hal" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

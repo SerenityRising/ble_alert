@@ -93,6 +93,9 @@
       <file file_name="../nRF5SDK_Current/modules/nrfx/drivers/src/nrfx_lpcomp.c" />
       <file file_name="../nRF5SDK_Current/modules/nrfx/drivers/include/nrfx_lpcomp.h" />
       <file file_name="../nRF5SDK_Current/modules/nrfx/hal/nrf_lpcomp.h" />
+      <file file_name="../nRF5SDK_Current/modules/nrfx/drivers/include/nrfx_timer.h" />
+      <file file_name="../nRF5SDK_Current/modules/nrfx/drivers/src/nrfx_timer.c" />
+      <file file_name="../nRF5SDK_Current/modules/nrfx/hal/nrf_timer.h" />
     </folder>
     <folder Name="Board Support">
       <file file_name="../nRF5SDK_Current/components/libraries/bsp/bsp.c" />
