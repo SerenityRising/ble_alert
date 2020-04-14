@@ -171,7 +171,7 @@ static void lpcomp_event_handler(nrf_lpcomp_event_t event); //ADDED
 //static scope so LPCOMP can access and start timer
 static const nrfx_timer_t nrfx_timer_0 = NRFX_TIMER_INSTANCE(1); //ADDED
 static void nrfx_timer_event_handler(nrf_timer_event_t event_type, void * p_context); //ADDED
-static uint8_t tone_burst_count = 0;
+static uint8_t tone_burst_count = 0; //ADDED
 
 
 /**@brief Callback function for asserts in the SoftDevice.
