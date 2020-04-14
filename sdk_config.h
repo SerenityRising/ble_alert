@@ -46,30 +46,6 @@
 #ifdef USE_APP_CONFIG
 #include "app_config.h"
 #endif
-// <h> Application 
-
-//==========================================================
-// <o> NRF_BLE_GQ_QUEUE_SIZE - Queue size for BLE GATT Queue module. 
-#ifndef NRF_BLE_GQ_QUEUE_SIZE
-#define NRF_BLE_GQ_QUEUE_SIZE 4
-#endif
-
-// </h> 
-//==========================================================
-
-// <h> Board Support 
-
-//==========================================================
-// <q> BSP_BTN_BLE_ENABLED  - bsp_btn_ble - Button Control for BLE
- 
-
-#ifndef BSP_BTN_BLE_ENABLED
-#define BSP_BTN_BLE_ENABLED 1
-#endif
-
-// </h> 
-//==========================================================
-
 // <h> nRF_BLE 
 
 //==========================================================
@@ -77,14 +53,7 @@
  
 
 #ifndef BLE_ADVERTISING_ENABLED
-#define BLE_ADVERTISING_ENABLED 1
-#endif
-
-// <q> BLE_DB_DISCOVERY_ENABLED  - ble_db_discovery - Database discovery module
- 
-
-#ifndef BLE_DB_DISCOVERY_ENABLED
-#define BLE_DB_DISCOVERY_ENABLED 1
+#define BLE_ADVERTISING_ENABLED 0
 #endif
 
 // <q> BLE_DTM_ENABLED  - ble_dtm - Module for testing RF/PHY using DTM commands
@@ -101,65 +70,10 @@
 #define BLE_RACP_ENABLED 0
 #endif
 
-// <e> NRF_BLE_CONN_PARAMS_ENABLED - ble_conn_params - Initiating and executing a connection parameters negotiation procedure
-//==========================================================
-#ifndef NRF_BLE_CONN_PARAMS_ENABLED
-#define NRF_BLE_CONN_PARAMS_ENABLED 1
-#endif
-// <o> NRF_BLE_CONN_PARAMS_MAX_SLAVE_LATENCY_DEVIATION - The largest acceptable deviation in slave latency. 
-// <i> The largest deviation (+ or -) from the requested slave latency that will not be renegotiated.
-
-#ifndef NRF_BLE_CONN_PARAMS_MAX_SLAVE_LATENCY_DEVIATION
-#define NRF_BLE_CONN_PARAMS_MAX_SLAVE_LATENCY_DEVIATION 499
-#endif
-
-// <o> NRF_BLE_CONN_PARAMS_MAX_SUPERVISION_TIMEOUT_DEVIATION - The largest acceptable deviation (in 10 ms units) in supervision timeout. 
-// <i> The largest deviation (+ or -, in 10 ms units) from the requested supervision timeout that will not be renegotiated.
-
-#ifndef NRF_BLE_CONN_PARAMS_MAX_SUPERVISION_TIMEOUT_DEVIATION
-#define NRF_BLE_CONN_PARAMS_MAX_SUPERVISION_TIMEOUT_DEVIATION 65535
-#endif
-
-// </e>
-
-// <q> NRF_BLE_GATT_ENABLED  - nrf_ble_gatt - GATT module
- 
-
-#ifndef NRF_BLE_GATT_ENABLED
-#define NRF_BLE_GATT_ENABLED 1
-#endif
-
-// <e> NRF_BLE_GQ_ENABLED - nrf_ble_gq - BLE GATT Queue Module
-//==========================================================
-#ifndef NRF_BLE_GQ_ENABLED
-#define NRF_BLE_GQ_ENABLED 1
-#endif
-// <o> NRF_BLE_GQ_DATAPOOL_ELEMENT_SIZE - Default size of a single element in the pool of memory objects. 
-#ifndef NRF_BLE_GQ_DATAPOOL_ELEMENT_SIZE
-#define NRF_BLE_GQ_DATAPOOL_ELEMENT_SIZE 20
-#endif
-
-// <o> NRF_BLE_GQ_DATAPOOL_ELEMENT_COUNT - Default number of elements in the pool of memory objects. 
-#ifndef NRF_BLE_GQ_DATAPOOL_ELEMENT_COUNT
-#define NRF_BLE_GQ_DATAPOOL_ELEMENT_COUNT 8
-#endif
-
-// <o> NRF_BLE_GQ_GATTC_WRITE_MAX_DATA_LEN - Maximal size of the data inside GATTC write request (in bytes). 
-#ifndef NRF_BLE_GQ_GATTC_WRITE_MAX_DATA_LEN
-#define NRF_BLE_GQ_GATTC_WRITE_MAX_DATA_LEN 16
-#endif
-
-// <o> NRF_BLE_GQ_GATTS_HVX_MAX_DATA_LEN - Maximal size of the data inside GATTC notification or indication request (in bytes). 
-#ifndef NRF_BLE_GQ_GATTS_HVX_MAX_DATA_LEN
-#define NRF_BLE_GQ_GATTS_HVX_MAX_DATA_LEN 16
-#endif
-
-// </e>
-
 // <e> NRF_BLE_QWR_ENABLED - nrf_ble_qwr - Queued writes support module (prepare/execute write)
 //==========================================================
 #ifndef NRF_BLE_QWR_ENABLED
-#define NRF_BLE_QWR_ENABLED 1
+#define NRF_BLE_QWR_ENABLED 0
 #endif
 // <o> NRF_BLE_QWR_MAX_ATTR - Maximum number of attribute handles that can be registered. This number must be adjusted according to the number of attributes for which Queued Writes will be enabled. If it is zero, the module will reject all Queued Write requests. 
 #ifndef NRF_BLE_QWR_MAX_ATTR
@@ -171,7 +85,7 @@
 // <e> PEER_MANAGER_ENABLED - peer_manager - Peer Manager
 //==========================================================
 #ifndef PEER_MANAGER_ENABLED
-#define PEER_MANAGER_ENABLED 1
+#define PEER_MANAGER_ENABLED 0
 #endif
 // <o> PM_MAX_REGISTRANTS - Number of event handlers that can be registered. 
 #ifndef PM_MAX_REGISTRANTS
@@ -191,7 +105,7 @@
 // <i> Enable/disable central-specific Peer Manager functionality.
 
 #ifndef PM_CENTRAL_ENABLED
-#define PM_CENTRAL_ENABLED 0
+#define PM_CENTRAL_ENABLED 1
 #endif
 
 // <q> PM_SERVICE_CHANGED_ENABLED  - Enable/disable the service changed management for GATT server in Peer Manager.
@@ -255,7 +169,7 @@
 // <i>  This might be necessary for interoperability reasons, especially as peripheral.
 
 #ifndef PM_HANDLER_SEC_DELAY_MS
-#define PM_HANDLER_SEC_DELAY_MS 1500
+#define PM_HANDLER_SEC_DELAY_MS 0
 #endif
 
 // </e>
@@ -277,7 +191,7 @@
  
 
 #ifndef BLE_ANS_C_ENABLED
-#define BLE_ANS_C_ENABLED 1
+#define BLE_ANS_C_ENABLED 0
 #endif
 
 // <q> BLE_BAS_C_ENABLED  - ble_bas_c - Battery Service Client
@@ -1713,7 +1627,7 @@
 // <2=> Down 
 
 #ifndef LPCOMP_CONFIG_DETECTION
-#define LPCOMP_CONFIG_DETECTION 1
+#define LPCOMP_CONFIG_DETECTION 2
 #endif
 
 // <o> LPCOMP_CONFIG_INPUT  - Analog input
@@ -1728,14 +1642,14 @@
 // <7=> 7 
 
 #ifndef LPCOMP_CONFIG_INPUT
-#define LPCOMP_CONFIG_INPUT 7
+#define LPCOMP_CONFIG_INPUT 0
 #endif
 
 // <q> LPCOMP_CONFIG_HYST  - Hysteresis
  
 
 #ifndef LPCOMP_CONFIG_HYST
-#define LPCOMP_CONFIG_HYST 1
+#define LPCOMP_CONFIG_HYST 0
 #endif
 
 // <o> LPCOMP_CONFIG_IRQ_PRIORITY  - Interrupt priority
@@ -1752,7 +1666,7 @@
 // <7=> 7 
 
 #ifndef LPCOMP_CONFIG_IRQ_PRIORITY
-#define LPCOMP_CONFIG_IRQ_PRIORITY 2
+#define LPCOMP_CONFIG_IRQ_PRIORITY 6
 #endif
 
 // </e>
@@ -2290,7 +2204,7 @@
 // <2=> Down 
 
 #ifndef NRFX_LPCOMP_CONFIG_DETECTION
-#define NRFX_LPCOMP_CONFIG_DETECTION 1
+#define NRFX_LPCOMP_CONFIG_DETECTION 2
 #endif
 
 // <o> NRFX_LPCOMP_CONFIG_INPUT  - Analog input
@@ -2305,14 +2219,14 @@
 // <7=> 7 
 
 #ifndef NRFX_LPCOMP_CONFIG_INPUT
-#define NRFX_LPCOMP_CONFIG_INPUT 7
+#define NRFX_LPCOMP_CONFIG_INPUT 0
 #endif
 
 // <q> NRFX_LPCOMP_CONFIG_HYST  - Hysteresis
  
 
 #ifndef NRFX_LPCOMP_CONFIG_HYST
-#define NRFX_LPCOMP_CONFIG_HYST 1
+#define NRFX_LPCOMP_CONFIG_HYST 0
 #endif
 
 // <o> NRFX_LPCOMP_CONFIG_IRQ_PRIORITY  - Interrupt priority
@@ -2327,13 +2241,13 @@
 // <7=> 7 
 
 #ifndef NRFX_LPCOMP_CONFIG_IRQ_PRIORITY
-#define NRFX_LPCOMP_CONFIG_IRQ_PRIORITY 2
+#define NRFX_LPCOMP_CONFIG_IRQ_PRIORITY 6
 #endif
 
 // <e> NRFX_LPCOMP_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef NRFX_LPCOMP_CONFIG_LOG_ENABLED
-#define NRFX_LPCOMP_CONFIG_LOG_ENABLED 1
+#define NRFX_LPCOMP_CONFIG_LOG_ENABLED 0
 #endif
 // <o> NRFX_LPCOMP_CONFIG_LOG_LEVEL  - Default Severity level
  
@@ -6640,7 +6554,7 @@
  
 
 #ifndef CRC16_ENABLED
-#define CRC16_ENABLED 1
+#define CRC16_ENABLED 0
 #endif
 
 // <q> CRC32_ENABLED  - crc32 - CRC32 calculation routines
@@ -6660,7 +6574,7 @@
 // <e> FDS_ENABLED - fds - Flash data storage module
 //==========================================================
 #ifndef FDS_ENABLED
-#define FDS_ENABLED 1
+#define FDS_ENABLED 0
 #endif
 // <h> Pages - Virtual page settings
 
@@ -7184,7 +7098,7 @@
 // <e> NRF_FSTORAGE_ENABLED - nrf_fstorage - Flash abstraction library
 //==========================================================
 #ifndef NRF_FSTORAGE_ENABLED
-#define NRF_FSTORAGE_ENABLED 1
+#define NRF_FSTORAGE_ENABLED 0
 #endif
 // <h> nrf_fstorage - Common settings
 
@@ -7378,7 +7292,7 @@
 // <e> NRF_QUEUE_ENABLED - nrf_queue - Queue module
 //==========================================================
 #ifndef NRF_QUEUE_ENABLED
-#define NRF_QUEUE_ENABLED 1
+#define NRF_QUEUE_ENABLED 0
 #endif
 // <q> NRF_QUEUE_CLI_CMDS  - Enable CLI commands specific to the module
  
@@ -11404,7 +11318,7 @@
 
 // <o> NRF_SDH_BLE_PERIPHERAL_LINK_COUNT - Maximum number of peripheral links. 
 #ifndef NRF_SDH_BLE_PERIPHERAL_LINK_COUNT
-#define NRF_SDH_BLE_PERIPHERAL_LINK_COUNT 1
+#define NRF_SDH_BLE_PERIPHERAL_LINK_COUNT 0
 #endif
 
 // <o> NRF_SDH_BLE_CENTRAL_LINK_COUNT - Maximum number of central links. 
@@ -11433,7 +11347,7 @@
 
 // <o> NRF_SDH_BLE_GATTS_ATTR_TAB_SIZE - Attribute Table size in bytes. The size must be a multiple of 4. 
 #ifndef NRF_SDH_BLE_GATTS_ATTR_TAB_SIZE
-#define NRF_SDH_BLE_GATTS_ATTR_TAB_SIZE 1408
+#define NRF_SDH_BLE_GATTS_ATTR_TAB_SIZE 248
 #endif
 
 // <o> NRF_SDH_BLE_VS_UUID_COUNT - The number of vendor-specific UUIDs. 
